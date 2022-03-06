@@ -10,7 +10,7 @@ public class EmployeeWagePerMonth {
 
 	public static void main(String[] args) {
 		int days = 1;
-		int salary = 0;
+		double salary = 0;
 		while (days <= DAYS_PER_MONTH) {
 			double empCheck = Math.floor(Math.random() * 10) % 3;
 			switch ((int) empCheck) {
