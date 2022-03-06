@@ -1,38 +1,47 @@
 package employeewagecomputation;
 
 public class EmployeeWageClassMethodsAndClassVariables {
-	public static final int PartTime = 1;
-	public static final int FullTime = 2;
-	public static final int RatePerHour = 20;
-	public static final int WorkingDays = 10;
-	public static final int MaxHoursInMonth = 10;
+	final int PRESENT_NUMBER_RANGE = 3;
+	final int PRESENT = 1;
+	final int PART_TIME = 2;
+	final int WAGE_PER_HOUR = 20;
+	final int WORKING_HOUR = 8;
+	final int MAX_WORKING_DAY = 20;
+	final int MAX_WORKING_HOUR = 80;
 
-	public static int EmpWageCompute() {
-		int EmpHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
-		while (totalEmpHrs <= MaxHoursInMonth && totalWorkingDays < WorkingDays) {
-			totalWorkingDays++;
-			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-			switch (empCheck) {
-			case PartTime:
-				EmpHrs = 4;
-				break;
-			case FullTime:
-				EmpHrs = 8;
-				break;
-			default:
-				EmpHrs = 0;
-			}
-			totalEmpHrs += EmpHrs;
-			System.out.println("Day : " + totalWorkingDays + " Employee Hrs: " + EmpHrs);
+	public int getWorkingHour(int empPresent) {
+		switch (empPresent) {
+		case PRESENT:
+			return WORKING_HOUR;
+
+		case PART_TIME:
+			return WORKING_HOUR / 2;
+
 		}
-		int totalEmpWage = totalEmpHrs * RatePerHour;
-		System.out.println("Total Emp Wage: " + totalEmpWage);
-		return totalEmpWage;
+		return 0;
+	}
+
+	public double calculateEmpWage() {
+		int totalWorkingHour = 0;
+		int day = 0;
+
+		while (day < MAX_WORKING_DAY && (totalWorkingHour + WORKING_HOUR / 2) < MAX_WORKING_HOUR) {
+			int isPresent = (int) (Math.random() * PRESENT_NUMBER_RANGE);
+			totalWorkingHour = totalWorkingHour + getWorkingHour(isPresent);
+			day++;
+		}
+
+		double salary = totalWorkingHour * WAGE_PER_HOUR;
+		System.out
+				.println("Employee monthly wage : $" + salary + " USD (total working hour : " + totalWorkingHour + ")");
+		System.out.println("Total working day : " + day);
+		return salary;
 	}
 
 	public static void main(String[] args) {
-		EmpWageCompute();
 
+		EmployeeWageClassMethodsAndClassVariables empWageBuilder = new EmployeeWageClassMethodsAndClassVariables();
+		empWageBuilder.calculateEmpWage();
 	}
 
 }
